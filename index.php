@@ -120,6 +120,11 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS reservas (
             flex-wrap: wrap;
             justify-content: center;
         }
+        .number-paid, .number-reserved {
+            background-color: brown;
+            color: white;
+            cursor: default;
+        }
     </style>
 </head>
 <body>
@@ -146,10 +151,13 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS reservas (
                 $class = 'number-available';
                 if ($row['pago']) {
                     $class = 'number-paid';
+                    echo "<div class='number-card $class'>{$row['numero']}</div>";
                 } elseif ($row['reservado']) {
                     $class = 'number-reserved';
+                    echo "<div class='number-card $class'>{$row['numero']}</div>";
+                } else {
+                    echo "<div class='number-card' data-bs-toggle='modal' data-bs-target='#modalRifa' data-numero='{$row['numero']}'>{$row['numero']}</div>";
                 }
-                echo "<div class='number-card $class' data-bs-toggle='modal' data-bs-target='#modalRifa' data-numero='{$row['numero']}'>{$row['numero']}</div>";
             }
             ?>
         </div>
